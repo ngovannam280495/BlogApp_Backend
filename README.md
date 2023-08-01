@@ -16,3 +16,5 @@
 4. Comment
 
 - Biết được người đăng comment (Có thể có chế độ ẩn danh)
+
+<!-- Mongo DB để lưu trữ Data, sử Mongoose để tương tác giữa NodeJS và Mongo! -->
