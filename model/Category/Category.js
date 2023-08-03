@@ -9,9 +9,16 @@ const categorySchema = new mongoose.Schema(
     },
 
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User',
+      },
+      authorName: {
+        type: String,
+        required: true,
+        ref: 'User',
+      },
     },
     shares: {
       type: Number,

@@ -5,7 +5,7 @@ const urlMongoDB = process.env.URL_MONGODB;
 
 const connectMongoDB = async () => {
   try {
-    await mongoose.connect(urlMongoDB, { socketTimeoutMS: 5000 });
+    await mongoose.connect(urlMongoDB);
     console.log('Connected to MongoDB Successfully');
   } catch (error) {
     console.log('Connect to MongoDB failed');
