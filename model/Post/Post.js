@@ -9,7 +9,7 @@ const postSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: true,
+      // required: true,
     },
     claps: {
       type: Number,
@@ -20,9 +20,15 @@ const postSchema = new mongoose.Schema(
       required: true,
     },
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User',
+      },
+      authorName: {
+        type: mongoose.Schema.Types.String,
+        ref: 'User',
+      },
     },
     shares: {
       type: Number,
@@ -37,7 +43,7 @@ const postSchema = new mongoose.Schema(
     ],
 
     category: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.String,
       required: true,
       ref: 'Category',
     },
