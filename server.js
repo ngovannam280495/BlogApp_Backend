@@ -4,6 +4,7 @@ const userRouter = require('./routes/users/userRouter');
 const connectMongoDB = require('./database/connectMongo');
 const { notFoundRouter, handlerGlobalError } = require('./middlewares/handlerError');
 const categoryRounter = require('./routes/categories/categoryRouter');
+const postRouter = require('./routes/posts/postsRouter');
 
 // !Server
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/categories', categoryRounter);
+app.use('/api/v1/posts', postRouter);
 // ? Middleware for not found router
 app.use(notFoundRouter);
 // MiddleWare Error Handler Global

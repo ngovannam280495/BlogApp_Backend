@@ -3,7 +3,7 @@ const Category = require('../../model/Category/Category');
 
 // ! Create a new category
 
-const createCategory = asyncHandler(async (req, res) => {
+exports.createCategory = asyncHandler(async (req, res) => {
   // Defined user post content
   const userLogin = req?.userLogin;
   const userNameLogin = userLogin ? userLogin.userName : 'anonymous';
@@ -31,7 +31,7 @@ const createCategory = asyncHandler(async (req, res) => {
 });
 
 // ! Delete category
-const deleteCategory = asyncHandler(async (req, res) => {
+exports.deleteCategory = asyncHandler(async (req, res) => {
   const idRequestDelete = req?.params.id;
   const category = await Category.findById(idRequestDelete);
   const categoryName = category.name;
@@ -44,7 +44,7 @@ const deleteCategory = asyncHandler(async (req, res) => {
 });
 
 // ! Update category
-const updateCategory = asyncHandler(async (req, res) => {
+exports.updateCategory = asyncHandler(async (req, res) => {
   const idRequestUpdate = req?.params.id;
   const { nameUpdate } = req?.body;
   const categoryUpdate = await Category.findById(idRequestUpdate);
@@ -56,4 +56,29 @@ const updateCategory = asyncHandler(async (req, res) => {
     message: message,
   });
 });
-module.exports = { createCategory, deleteCategory, updateCategory };
+
+// ! Fectch All Categories
+
+exports.fetchAllCategories = asyncHandler(async (req, res) => {
+  // Fectch all categories
+  const allCategories = await Category.find({});
+  const allCategoryNames = allCategories.map((category) => category.name);
+  // Response
+  res.status(200).json({
+    status: 'success',
+    message: 'Getting all categories successfully',
+    data: allCategoryNames,
+  });
+});
+
+// ! Fectch One Category
+
+exports.fetchCategory = asyncHandler(async (req, res) => {
+  const idFetch = req?.params.id;
+  const category = await Category.findById(idFetch);
+  res.status(200).json({
+    status: 'success',
+    message: 'Getting category successfully',
+    category: category,
+  });
+});

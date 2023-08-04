@@ -5,12 +5,13 @@ const notFoundRouter = (req, res, next) => {
 };
 
 const handlerGlobalError = (err, req, res, next) => {
-  res.status(err.status || 500);
-  res.json({
-    error: {
-      message: err.message,
-      stack: err.stack,
-    },
+  const status = err?.status ? err.status : 500;
+  const message = err?.message ? err.message : 'Failed to connect';
+  const stack = err?.stack ? err.stack : 'Failed to connect';
+  res.status(status).json({
+    status: 'Failed',
+    message: message,
+    stack: stack,
   });
 };
 
