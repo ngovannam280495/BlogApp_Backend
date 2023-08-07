@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 
 // Schema
 
@@ -54,8 +55,11 @@ const userSchema = new mongoose.Schema(
     },
     profileViewers: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        userID: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        timeView: Date,
       },
     ],
     followers: [
@@ -105,6 +109,21 @@ const userSchema = new mongoose.Schema(
     },
   },
 );
+// ! Defined methods generate token verification
+userSchema.methods.generateTokenVerification = function () {
+  const token = crypto.randomBytes(16).toString('hex');
+  this.accountVerificationToken = crypto.createHash('sha256').update(token).digest('hex');
+  this.accountVerificationExpries = Date.now() + 10 * 60 * 1000; // after 10 minutes expried
+  return token;
+};
+
+// ! Defined methods generate token forgot password
+userSchema.methods.generateTokenResetPassword = function () {
+  const token = crypto.randomBytes(16).toString('hex');
+  this.passwordResetToken = crypto.createHash('sha256').update(token).digest('hex');
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // after 10 minutes expried
+  return token;
+};
 
 // ! Complie schema to model
 
