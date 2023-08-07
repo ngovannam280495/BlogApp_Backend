@@ -1,7 +1,6 @@
 const Comment = require('../../model/Comment/Comment');
 const Post = require('../../model/Post/Post');
 const asyncHandler = require('express-async-handler');
-const { findComment } = require('../../utils/findComment');
 
 // ! Create a new comment
 exports.createComment = asyncHandler(async (req, res) => {
